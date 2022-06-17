@@ -49,6 +49,8 @@ int readBMP(char* path) {
 
     rotate(bmpHeader, img);
 
+    rotate_2(bmpHeader, img);
+
     fclose(file);
 }
 
@@ -97,6 +99,20 @@ int swap(unsigned char* a, unsigned char* b, unsigned bytes) {
         tmp = *a;
         *a++ = *b;
         *b++ = tmp;
+    }
+}
+
+void rotate_2(const struct BmpHeader* head, unsigned char* img) {
+    int i, j;
+    int bytes = head->bitPixel / 8;
+    int width = (bytes * head->width + bytes) & (-4);
+
+    for (i = 0; i < head->height / 2; ++i) {
+        for (j = 0; j < head->width; ++j) {
+            swap(img + (width * i) + j * bytes,
+                 img + (width * (head->height - i - 1)) + j * bytes,
+                 bytes);
+        }
     }
 }
 
