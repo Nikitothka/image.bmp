@@ -3,7 +3,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 unsigned char** img;
-
+//сюда
 #pragma pack(push, 2)
 
 struct BmpHeader {
